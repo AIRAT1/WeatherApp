@@ -3,6 +3,7 @@ package de.android.weatherapp.data.remote;
 import de.android.weatherapp.data.modele.Weather;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
 public interface WeatherAPI {
@@ -16,8 +17,10 @@ public interface WeatherAPI {
         public static WeatherAPI getInstance() {
             if (service == null) {
                 Retrofit retrofit = new Retrofit.Builder()
+                        .addConverterFactory(GsonConverterFactory.create())
                         .baseUrl(BASE_URL)
                         .build();
+
                 service = retrofit.create(WeatherAPI.class);
                 return service;
             } else {
